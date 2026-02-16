@@ -1,14 +1,12 @@
 import api from "../api/axios";
 
-const USER_ID = 1;
-
 export const subscriptionService = {
-  subscribe: (data) =>
-    api.post(`/users/${USER_ID}/subscriptions`, data),
+  subscribe: (userId, data) =>
+    api.post(`/users/${userId}/subscriptions`, data).then(res => res.data),
 
-  getUserSubscriptions: () =>
-    api.get(`/users/${USER_ID}/subscriptions`),
+  getUserSubscriptions: (userId) =>
+    api.get(`/users/${userId}/subscriptions`).then(res => res.data),
 
-  remove: (newsSourceId) =>
-    api.delete(`/users/${USER_ID}/subscriptions/${newsSourceId}`),
+  remove: (userId, newsSourceId) =>
+    api.delete(`/users/${userId}/subscriptions/${newsSourceId}`).then(res => res.data),
 };

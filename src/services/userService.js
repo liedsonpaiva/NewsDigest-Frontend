@@ -1,17 +1,15 @@
 import api from "../api/axios";
 
-const USER_ID = 1;
-
 export const userService = {
   register: (data) =>
-    api.post("/users", data),
+    api.post("/users", data).then(res => res.data),
 
-  updateHorario: (data) =>
-    api.put(`/users/${USER_ID}/horario`, data),
+  getById: (userId) =>
+    api.get(`/users/${userId}`).then(res => res.data),
 
-  deactivate: () =>
-    api.delete(`/users/${USER_ID}`),
+  updateHorario: (userId, data) =>
+    api.put(`/users/${userId}/horario`, data).then(res => res.data),
 
-  getById: () =>
-    api.get(`/users/${USER_ID}`),
+  deactivate: (userId) =>
+    api.delete(`/users/${userId}`).then(res => res.data),
 };

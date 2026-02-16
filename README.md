@@ -1,16 +1,63 @@
-# React + Vite
+# 🚀 Como Rodar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1 - Instale dependências:
+npm install
 
-Currently, two official plugins are available:
+2 - Crie um arquivo .env na raiz do frontend:
+VITE_API_URL=http://localhost:8080/api
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+3 - Inicie o servidor de desenvolvimento:
+npm run dev
 
-## React Compiler
+4 - Acesse no navegador:
+http://localhost:5173
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# 🌐 Variável de Ambiente
 
-## Expanding the ESLint configuration
+VITE_API_URL → URL base do backend
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# 📁 Estrutura de Pastas
+frontend/src/
+ ├── api/        # Configuração Axios
+ ├── services/   # Serviços para consumir API
+ ├── pages/      # Páginas principais
+ ├── components/ # Componentes reutilizáveis
+ ├── hooks/      # Hooks customizados
+ ├── utils/      # Funções utilitárias
+
+# 🔄 Fluxo de Navegação
+
+-Cadastro de Usuário (RegisterUser.jsx)
+Cadastra email e horário de envio → POST /users
+
+-Listagem de Fontes (Sources.jsx)
+Lista apenas fontes ativas → GET /news-sources
+Checkbox para seleção
+
+=Assinaturas (Subscriptions.jsx)
+Seleção de fonte e quantidade de notícias → POST /users/{userId}/subscriptions
+Lista atualiza automaticamente
+Remoção → DELETE /users/{userId}/subscriptions/{newsSourceId}
+
+-Configurações do Usuário (UserSettings.jsx)
+Atualiza horário → PUT /users/{userId}/horario
+Desativa conta → DELETE /users/{userId}
+
+-Cancelamento via Token (/cancel/:token)
+GET /unsubscribe?token={token} → desativa usuário
+Mostra mensagem final de descadastro
+
+# ⚙️ Dependências
+
+React + Vite – Estrutura principal
+Axios – Requisições HTTP
+React Router DOM – Navegação entre páginas
+Instalação:
+npm install axios react-router-dom
+
+# 📌 Observações
+
+Nenhum estado global complexo.
+Sem UI frameworks pesados.
+Testes automatizados não implementados.
+Fluxo simples e direto para demonstrar integração real com backend.
