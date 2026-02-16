@@ -1,7 +1,14 @@
 import api from "../api/axios";
 
-export const subscriptionService = {
-  subscribe: (data) => api.post("/subscriptions", data),
+const USER_ID = 1;
 
-  getUserSubscriptions: () => api.get("/subscriptions"),
+export const subscriptionService = {
+  subscribe: (data) =>
+    api.post(`/users/${USER_ID}/subscriptions`, data),
+
+  getUserSubscriptions: () =>
+    api.get(`/users/${USER_ID}/subscriptions`),
+
+  remove: (newsSourceId) =>
+    api.delete(`/users/${USER_ID}/subscriptions/${newsSourceId}`),
 };

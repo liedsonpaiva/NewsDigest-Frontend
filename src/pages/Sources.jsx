@@ -11,7 +11,7 @@ export default function Sources() {
     const fetchSources = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("/news-sources"); // seu endpoint
+        const res = await axios.get("/news-sources"); // endpoint
         // Filtra apenas fontes ativas
         const activeSources = res.data.filter((s) => s.active);
         setSources(activeSources);

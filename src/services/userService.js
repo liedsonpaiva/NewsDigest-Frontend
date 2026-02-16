@@ -1,9 +1,17 @@
 import api from "../api/axios";
 
+const USER_ID = 1;
+
 export const userService = {
-  register: (data) => api.post("/users", data),
+  register: (data) =>
+    api.post("/users", data),
 
-  login: (data) => api.post("/auth/login", data),
+  updateHorario: (data) =>
+    api.put(`/users/${USER_ID}/horario`, data),
 
-  getProfile: () => api.get("/users/me"),
+  deactivate: () =>
+    api.delete(`/users/${USER_ID}`),
+
+  getById: () =>
+    api.get(`/users/${USER_ID}`),
 };
