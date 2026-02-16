@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 export default function Sources() {
   const [sources, setSources] = useState([]);
@@ -11,13 +11,10 @@ export default function Sources() {
     const fetchSources = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("/news-sources"); // endpoint
-        // Filtra apenas fontes ativas
-        const activeSources = res.data.filter((s) => s.active);
-        setSources(activeSources);
+        const res = await api.get("/news-sources");
+        setSources(res.data.data); // pega do ApiResponse
       } catch (err) {
-        const message = err?.response?.data?.message || "Erro inesperado";
-        setError(message);
+        setError(err?.response?.data?.message || "Erro inesperado");
       } finally {
         setLoading(false);
       }
@@ -26,45 +23,54 @@ export default function Sources() {
     fetchSources();
   }, []);
 
-  const handleCheckboxChange = (id) => {
-    setSelectedSources((prev) =>
-      prev.includes(id)
-        ? prev.filter((sid) => sid !== id)
-        : [...prev, id]
-    );
-  };
-
   if (loading) return <p>Carregando fontes...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div style={{ maxWidth: 600, margin: "0 auto" }}>
+    <div className="sources-container">
       <h2>Fontes de Notícias</h2>
-
       {sources.length === 0 ? (
         <p>Nenhuma fonte ativa encontrada.</p>
       ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
+        <div className="sources-grid">
           {sources.map((source) => (
-            <li key={source.id} style={{ marginBottom: 8 }}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedSources.includes(source.id)}
-                  onChange={() => handleCheckboxChange(source.id)}
-                />
-                {" "}{source.name}
-              </label>
-            </li>
+            <div
+              key={source.id}
+              className={`source-card ${
+                selectedSources.includes(source.id) ? "selected" : ""
+              }`}
+              onClick={() =>
+                setSelectedSources((prev) =>
+                  prev.includes(source.id)
+                    ? prev.filter((sid) => sid !== source.id)
+                    : [...prev, source.id]
+                )
+              }
+            >
+              <img
+                src={source.logoUrl}
+                alt={source.name}
+                className="source-logo"
+              />
+            </div>
           ))}
-        </ul>
+        </div>
       )}
 
-      <div>
+      <div className="selected-sources">
         <strong>Selecionadas:</strong>{" "}
-        {selectedSources.length > 0
-          ? selectedSources.join(", ")
-          : "Nenhuma"}
+        {selectedSources.length > 0 ? (
+          <span>
+            {selectedSources
+              .map(id => {
+                const source = sources.find(s => s.id === id);
+                return source ? source.name : id;
+              })
+              .join(", ")}
+          </span>
+        ) : (
+          "Nenhuma"
+        )}
       </div>
     </div>
   );

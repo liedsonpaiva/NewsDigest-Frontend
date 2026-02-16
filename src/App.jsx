@@ -3,6 +3,7 @@ import RegisterUser from "./pages/RegisterUser";
 import Sources from "./pages/Sources";
 import Subscriptions from "./pages/Subscriptions";
 import UserSettings from "./pages/UserSettings";
+import './App.css'
 
 function App() {
   return (
