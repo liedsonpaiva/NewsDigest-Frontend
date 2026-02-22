@@ -33,7 +33,9 @@ export default function UserSettings() {
     setError("");
 
     try {
-      const res = await userService.updateHorario({ horarioEnvio: novoHorario });
+      const res = await userService.updateHorario({
+        horarioEnvio: novoHorario,
+      });
       setSuccess(res.data.message);
       setHorarioAtual(novoHorario);
     } catch (err) {
@@ -65,7 +67,9 @@ export default function UserSettings() {
     <div style={{ maxWidth: 400, margin: "0 auto" }}>
       <h2>Configurações do Usuário</h2>
 
-      <p><strong>Horário Atual:</strong> {horarioAtual}</p>
+      <p>
+        <strong>Horário Atual:</strong> {horarioAtual}
+      </p>
 
       <form onSubmit={handleUpdate}>
         <div>

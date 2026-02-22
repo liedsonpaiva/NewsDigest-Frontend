@@ -218,13 +218,17 @@ p[style*="color: red"] {
   background-color: #111;
   border: 2px solid transparent;
   border-radius: 12px;
-  padding: 16px;
+  padding: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
+
   display: flex;
+  flex-direction: column; /* 🔥 empilha vertical */
   align-items: center;
   justify-content: center;
-  height: 150px; /* altura fixa para todos os quadrados */
+  gap: 10px;
+
+  height: 180px; /* um pouco maior */
 }
 
 .source-card:hover {
@@ -234,6 +238,17 @@ p[style*="color: red"] {
 
 .source-card.selected {
   border-color: #61dafb;
+}
+
+.source-amount {
+  width: 70px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #000;
+  color: #eee;
+  text-align: center;
+  font-size: 1rem;
 }
 
 .source-logo {
